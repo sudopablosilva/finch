@@ -29,9 +29,9 @@ jobs:
           fetch-depth: 1
           submodules: recursive
           persist-credentials: false
-      - name: Clean up previous files
-        run: |
-          sudo rm -rf /opt/finch
+#      - name: Clean up previous files
+#        run: |
+#          sudo rm -rf /opt/finch
 #          sudo rm -rf ~/.finch
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
