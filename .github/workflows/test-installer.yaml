@@ -47,7 +47,7 @@ jobs:
         run: |
           echo 'A' | sudo softwareupdate --install-rosetta
           sudo installer -pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg -target /
-      - run: cat /Users/ec2-user/ar/_work/_temp/5505d920-ab42-4b56-8ff7-182928d6ec8f.sh
+      - run: cat /Users/ec2-user/ar/_work/_temp/*
       - name: Sanity check
         run: finch version --debug
 #      - run: brew install go lz4 automake autoconf libtool
