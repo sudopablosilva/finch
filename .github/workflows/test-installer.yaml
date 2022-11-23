@@ -32,7 +32,7 @@ jobs:
       - name: Clean up previous files
         run: |
           sudo rm -rf /opt/finch
-          sudo rm -rf ~/.finch
+#          sudo rm -rf ~/.finch
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
