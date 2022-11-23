@@ -39,10 +39,10 @@ func xmain(logger flog.Logger, ffd path.FinchFinderDeps, fs afero.Fs, loadCfgDep
 		return fmt.Errorf("failed to find the installation path of Finch: %w", err)
 	}
 
-	//fc, err := config.Load(fs, fp.ConfigFilePath(ffd.Env("HOME")), logger, loadCfgDeps, mem)
-	//if err != nil {
-	//	return fmt.Errorf("failed to load config: %w", err)
-	//}
+	fc, err := config.Load(fs, fp.ConfigFilePath(ffd.Env("HOME")), logger, loadCfgDeps, mem)
+	if err != nil {
+		return fmt.Errorf("failed to load config: %w", err)
+	}
 
 	return newApp(logger, fp, fs, fc).Execute()
 }
