@@ -33,20 +33,20 @@ jobs:
 #        run: |
 #          sudo rm -rf /opt/finch
 #          sudo rm -rf ~/.finch
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.ROLE }}
-          role-session-name: download-installer-session
-          aws-region: ${{ secrets.REGION }}
-      - name: Download from S3
-        run: |
-          aws s3 cp s3://${{ secrets.INSTALLER_PRIVATE_BUCKET_NAME }}/Finch-${GITHUB_REF_NAME}-aarch64.pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg
-      - name: Silently install
-        # Rosetta is only needed in arm64
-        run: |
-          echo 'A' | sudo softwareupdate --install-rosetta
-          sudo installer -pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg -target /
+#      - name: configure aws credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: ${{ secrets.ROLE }}
+#          role-session-name: download-installer-session
+#          aws-region: ${{ secrets.REGION }}
+#      - name: Download from S3
+#        run: |
+#          aws s3 cp s3://${{ secrets.INSTALLER_PRIVATE_BUCKET_NAME }}/Finch-${GITHUB_REF_NAME}-aarch64.pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg
+#      - name: Silently install
+#        # Rosetta is only needed in arm64
+#        run: |
+#          echo 'A' | sudo softwareupdate --install-rosetta
+#          sudo installer -pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg -target /
       - name: Sanity check
         run: sudo finch version
 #      - run: brew install go lz4 automake autoconf libtool
