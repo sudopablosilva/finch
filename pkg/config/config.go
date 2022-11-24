@@ -96,8 +96,11 @@ func ensureConfigDir(fs afero.Fs, path string, log flog.Logger) error {
 
 // Load loads Finch's configuration from a YAML file and initializes default values.
 func Load(fs afero.Fs, cfgPath string, log flog.Logger, systemDeps LoadSystemDeps, mem fmemory.Memory) (*Finch, error) {
+	log.Info("Reading file")
 	b, err := afero.ReadFile(fs, cfgPath)
+	log.Info("Read file")
 	if err != nil {
+		log.Info("Readfile error...")
 		if errors.Is(err, afero.ErrFileNotFound) {
 			log.Infof("Using default values due to missing config file at %q", cfgPath)
 			defCfg := applyDefaults(&Finch{}, systemDeps, mem)
@@ -113,18 +116,20 @@ func Load(fs afero.Fs, cfgPath string, log flog.Logger, systemDeps LoadSystemDep
 	}
 
 	var cfg Finch
+	log.Info("Unmarshalling...")
 	if err := yaml.Unmarshal(b, &cfg); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal config file, using default values: %w", err)
 	}
-
+	log.Info("Applying  defaults")
 	defCfg := applyDefaults(&cfg, systemDeps, mem)
+	log.Info("Writing config")
 	if err := writeConfig(defCfg, fs, cfgPath); err != nil {
 		return nil, err
 	}
-
+	log.Info("Validating...")
 	if err := validate(defCfg, log, systemDeps, mem); err != nil {
 		return nil, fmt.Errorf("failed to validate config file: %w", err)
 	}
-
+	log.Info("Returning config")
 	return defCfg, nil
 }

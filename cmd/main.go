@@ -25,21 +25,29 @@ const finchRootCmd = "finch"
 
 func main() {
 	logger := flog.NewLogrus()
+	logger.Info("Create Logger")
 	stdLib := system.NewStdLib()
+	logger.Info("Create StdLib")
 	fs := afero.NewOsFs()
+	logger.Info("Create NewOsFs")
 	mem := fmemory.NewMemory()
+	logger.Info("Create Memory")
 	if err := xmain(logger, stdLib, fs, stdLib, mem); err != nil {
+		logger.Info("Logging xmain error")
 		logger.Fatal(err)
 	}
 }
 
 func xmain(logger flog.Logger, ffd path.FinchFinderDeps, fs afero.Fs, loadCfgDeps config.LoadSystemDeps, mem fmemory.Memory) error {
+	logger.Info("Finding Finch")
 	fp, err := path.FindFinch(ffd)
+	logger.Info("Finch path: " + string(fp))
 	if err != nil {
 		return fmt.Errorf("failed to find the installation path of Finch: %w", err)
 	}
-
+	logger.Info("Loading Config")
 	fc, err := config.Load(fs, fp.ConfigFilePath(ffd.Env("HOME")), logger, loadCfgDeps, mem)
+	logger.Info("Loaded Config")
 	if err != nil {
 		return fmt.Errorf("failed to load config: %w", err)
 	}
