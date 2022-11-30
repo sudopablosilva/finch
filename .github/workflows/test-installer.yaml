@@ -47,8 +47,8 @@ jobs:
         run: |
           echo 'A' | sudo softwareupdate --install-rosetta
           sudo installer -pkg Finch-${GITHUB_REF_NAME}-aarch64.pkg -target /
-      - name: Sanity check
-        run: finch version
+#      - name: Sanity check
+#        run: finch version
 #      - run: brew install go lz4 automake autoconf libtool
 #      - name: Build project
 #        run: |
@@ -56,12 +56,12 @@ jobs:
 #          which libtool
 #          make
 #          make install
-      - name: Run e2e tests
-        run: INSTALLED=true make test-e2e
-#      - name: Silently uninstall
-#        run: echo 'y' | sudo bash /Applications/Finch/uninstall.sh
-#      - name: Delete installer
-#        run: rm -rf Finch-${GITHUB_REF_NAME}-aarch64.pkg
+#      - name: Run e2e tests
+#        run: INSTALLED=true make test-e2e
+      - name: Silently uninstall
+        run: echo 'y' | sudo bash /Applications/Finch/uninstall.sh
+      - name: Delete installer
+        run: rm -rf Finch-${GITHUB_REF_NAME}-aarch64.pkg
 #
 #  macos-x86-test-installer:
 #    strategy:
