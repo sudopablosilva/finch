@@ -55,7 +55,14 @@ jobs:
           readlink $(which finch)
           file $(which finch)
       - name: Sanity check
-        run: finch version
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 5
+          # You can specify the shell commands you want to retry here
+          command: |
+            finch version
 #      - run: brew install go lz4 automake autoconf libtool
 #      - name: Build project
 #        run: |
