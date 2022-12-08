@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [[self-hosted, macos, arm64, 13.0, test]] #[self-hosted, macos, arm64, 11.7, test], [self-hosted, macos, arm64, 12.6, test],
+        os: [[self-hosted, macos, arm64, 13.0, release]] #[self-hosted, macos, arm64, 11.7, test], [self-hosted, macos, arm64, 12.6, test],
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     env:
