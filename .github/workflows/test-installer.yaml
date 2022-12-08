@@ -54,18 +54,14 @@ jobs:
           ls -l $(which finch)
           readlink $(which finch)
           file $(which finch)
-      - name: Activation
-        uses: nick-fields/retry@v2
-        with:
-          max_attempts: 3
-          retry_on: error
-          timeout_seconds: 5
-          # You can specify the shell commands you want to retry here
-          command: |
-            finch version
-      - name: Sanity Check
+      - name: Try
         run: |
           finch version
+        continue-on-error: true
+      - name: Retry
+        run: |
+          finch version
+        continue-on-error: true
 #      - run: brew install go lz4 automake autoconf libtool
 #      - name: Build project
 #        run: |
