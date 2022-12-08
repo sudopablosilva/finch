@@ -61,7 +61,6 @@ jobs:
       - name: Retry
         run: |
           finch version
-        continue-on-error: true
 #      - run: brew install go lz4 automake autoconf libtool
 #      - name: Build project
 #        run: |
